@@ -165,7 +165,7 @@ int32_t SDL_Arduino_INA3221::getCurrent_uA(int channel) {
     Serial.print(" return="); Serial.print(units,12);
 */ 
   // *5 gives uV, *1000 makes mV
-  return ((value*5*1000) / global.channelShuntResistors[channel]);
+  return ((value*5*1000) / global.channelShuntResistors[channel-1]);
 }
 
 /**************************************************************************/
@@ -195,7 +195,7 @@ float SDL_Arduino_INA3221::getBusVoltage_V(int channel) {
 float SDL_Arduino_INA3221::getCurrent_mA(int channel) {
   int32_t value = getShuntVoltage_raw(channel);  // units of 5 uV
   // stay in int mode & keep precision   //micro over milli begets milli
-  value = (value*5)/global.channelShuntResistors[channel]; 
+  value = (value*5)/global.channelShuntResistors[channel-1]; 
   return ( float(value)); 
 }
 /**************************************************************************/
